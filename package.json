@@ -1,0 +1,63 @@
+{
+    "name": "around",
+    "displayName": "around",
+    "description": "Put open and close tokens around a region.",
+    "version": "0.0.0",
+    "publisher": "abingham",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/abingham/vsc-around/issues"
+    },
+    "homepage": "https://github.com/abingham/vsc-around",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/abingham/vsc-around"
+    },
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "onCommand:extension.around"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.around",
+                "title": "Around: Put tokens around the selected region."
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Around configuration",
+            "properties": {
+                "around.pairs": {
+                    "type": "object",
+                    "default": {
+                        "(": ["( ", " )"],
+                        ")": ["(", ")"],
+                        "{": ["{ ", " }"],
+                        "}": ["{", "}"],
+                        "<": ["< ", " >"],
+                        ">": ["<", ">"],
+                        "[": ["[ ", " ]"],
+                        "]": ["[", "]"]
+                    },
+                    "description": "Mapping from triggers to before/after tokens."
+                }
+            }
+        }
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
+        "postinstall": "node ./node_modules/vscode/bin/install"
+    },
+    "devDependencies": {
+        "typescript": "^1.8.5",
+        "vscode": "^0.11.0"
+    }
+}
