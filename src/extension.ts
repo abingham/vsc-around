@@ -41,7 +41,7 @@ function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
         if (trigger === undefined) {
             return;
         }
-        const pairs = vscode.workspace.getConfiguration('around').pairs;
+        const pairs = vscode.workspace.getConfiguration('around.pairs');
         var tokens = [trigger, trigger];
         if (trigger in pairs) {
             tokens = pairs[trigger]
