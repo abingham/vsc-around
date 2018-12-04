@@ -4,10 +4,10 @@ import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    const around = vscode.commands.registerTextEditorCommand('extension.around', 
-                                                             (textEditor, edit) => { around(textEditor, edit); });
-
-    context.subscriptions.push(around);
+    context.subscriptions.push(
+        vscode.commands.registerTextEditorCommand(
+            'extension.around', 
+            (textEditor, edit) => { around(textEditor, edit); }));
 }
 
 export function deactivate() {
