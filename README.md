@@ -2,6 +2,8 @@
 
 Manage token around regions.
 
+This is a bit of an `evil-surround` port by an Emacs refugee.
+
 -----------------------------------------------------------------------------------------------------------
 
 ## Features

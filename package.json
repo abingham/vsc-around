@@ -1,7 +1,7 @@
 {
     "name": "around",
     "displayName": "around",
-    "description": "Put open and close tokens around a region.",
+    "description": "Manage open and close tokens around a region, a bit like evil-surround from Emacs.",
     "version": "0.0.0",
     "publisher": "abingham",
     "license": "MIT",
