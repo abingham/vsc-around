@@ -13,12 +13,23 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {
 }
 
-function insertTokens(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, insBefore: string, insAfter: string) {
+function getSelectionRange(selection: vscode.Range, document: vscode.TextDocument) {
+    if (selection.isEmpty) {
+        // if a selection is empty, we assume the user wants to surround the current word.
+        return document.getWordRangeAtPosition(selection.start);
+    }    
+    return selection
+}
 
+function insertTokens(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, insBefore: string, insAfter: string) {
     textEditor.edit(editBuilder => {
         textEditor.selections.forEach(selection => {
-            let selected = textEditor.document.getText(selection);
-            editBuilder.replace(selection, insBefore + selected + insAfter);
+            let range = getSelectionRange(selection, textEditor.document);
+            if (range === undefined) {
+                return;
+            }
+            let selected = textEditor.document.getText(range);
+            editBuilder.replace(range, insBefore + selected + insAfter);
         })
     });
 }
