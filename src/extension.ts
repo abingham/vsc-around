@@ -39,6 +39,8 @@ function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
         if (trigger === undefined) {
             return;
         }
+        trigger = trigger.replace("\\n", "\n")
+
         const pairs = vscode.workspace.getConfiguration('around.pairs');
         const start: string[] = []
         const end: string[] = []
