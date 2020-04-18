@@ -17,7 +17,7 @@ function getSelectionRange(selection: vscode.Range, document: vscode.TextDocumen
     if (selection.isEmpty) {
         // if a selection is empty, we assume the user wants to surround the current word.
         return document.getWordRangeAtPosition(selection.start);
-    }    
+    }
     return selection
 }
 
@@ -40,10 +40,7 @@ function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
             return;
         }
         const pairs = vscode.workspace.getConfiguration('around.pairs');
-        var tokens = [trigger, trigger];
-        if (trigger in pairs) {
-            tokens = pairs[trigger]
-        }
-        insertTokens(textEditor, edit, tokens[0], tokens[1]);
+        const end: string[] = trigger.split('').map(char => char in pairs ? pairs[char] : char).reverse();
+        insertTokens(textEditor, edit, trigger, end.join(''));
     });
 }
