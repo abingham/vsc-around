@@ -40,7 +40,13 @@ function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
             return;
         }
         const pairs = vscode.workspace.getConfiguration('around.pairs');
-        const end: string[] = trigger.split('').map(char => char in pairs ? pairs[char] : char).reverse();
-        insertTokens(textEditor, edit, trigger, end.join(''));
+        const start: string[] = []
+        const end: string[] = []
+        for (let char of trigger) {
+            let [s, e] = char in pairs ? pairs[char] : [char, char]
+            start.push(s)
+            end.unshift(e)
+        }
+        insertTokens(textEditor, edit, start.join(''), end.join(''));
     });
 }
