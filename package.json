@@ -2,7 +2,7 @@
   "name": "around",
   "displayName": "around",
   "description": "Manage open and close tokens around a region, a bit like evil-surround from Emacs.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "abingham",
   "icon": "images/around.png",
   "license": "MIT",
@@ -15,7 +15,7 @@
     "url": "https://github.com/abingham/vsc-around"
   },
   "engines": {
-    "vscode": "^1.5.0"
+    "vscode": "^1.44.0"
   },
   "categories": [
     "Other"
