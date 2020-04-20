@@ -42,13 +42,26 @@ function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
         trigger = trigger.replace("\\n", "\n")
 
         const pairs = vscode.workspace.getConfiguration('around.pairs');
+
         const start: string[] = []
         const end: string[] = []
-        for (let char of trigger) {
-            let [s, e] = char in pairs ? pairs[char] : [char, char]
+
+        // If the trigger exactly matches a key in "pairs", use just that mapping.
+        if (trigger in pairs) {
+            let [s, e] = pairs[trigger]
             start.push(s)
-            end.unshift(e)
+            end.push(e)
         }
+
+        // Otherwise,  process each character in the trigger independently.
+        else {
+            for (let char of trigger) {
+                let [s, e] = char in pairs ? pairs[char] : [char, char]
+                start.push(s)
+                end.unshift(e)
+            }
+        }
+
         insertTokens(textEditor, edit, start.join(''), end.join(''));
     });
 }
