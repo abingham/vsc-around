@@ -1,0 +1,11 @@
+Dear Austin,
+
+You will surely forget how to publish this extension. When you forget, just go here:
+
+https://marketplace.visualstudio.com/manage/publishers/abingham
+
+Login using your "onmicrosoft" address.
+
+Yours,
+
+Austin
