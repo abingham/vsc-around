@@ -7,7 +7,9 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
         vscode.commands.registerTextEditorCommand(
             'extension.around',
-            (textEditor, edit) => { around(textEditor, edit); }));
+            around
+        )
+    );
 }
 
 export function deactivate() {
@@ -34,34 +36,39 @@ function insertTokens(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit
     });
 }
 
-function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit) {
-    vscode.window.showInputBox().then(function (trigger) {
-        if (trigger === undefined) {
-            return;
-        }
-        trigger = trigger.replace("\\n", "\n")
-
-        const pairs = vscode.workspace.getConfiguration('around.pairs');
-
-        const start: string[] = []
-        const end: string[] = []
-
-        // If the trigger exactly matches a key in "pairs", use just that mapping.
-        if (trigger in pairs) {
-            let [s, e] = pairs[trigger]
-            start.push(s)
-            end.push(e)
-        }
-
-        // Otherwise,  process each character in the trigger independently.
-        else {
-            for (let char of trigger) {
-                let [s, e] = char in pairs ? pairs[char] : [char, char]
-                start.push(s)
-                end.unshift(e)
+function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, ...args: any[]) {
+    if (args.length == 2) {
+        insertTokens(textEditor, edit, args[0], args[1])
+    }
+    else {
+        vscode.window.showInputBox().then(function (trigger) {
+            if (trigger === undefined) {
+                return;
             }
-        }
+            trigger = trigger.replace("\\n", "\n")
 
-        insertTokens(textEditor, edit, start.join(''), end.join(''));
-    });
+            const pairs = vscode.workspace.getConfiguration('around.pairs');
+
+            const start: string[] = []
+            const end: string[] = []
+
+            // If the trigger exactly matches a key in "pairs", use just that mapping.
+            if (trigger in pairs) {
+                let [s, e] = pairs[trigger]
+                start.push(s)
+                end.push(e)
+            }
+
+            // Otherwise,  process each character in the trigger independently.
+            else {
+                for (let char of trigger) {
+                    let [s, e] = char in pairs ? pairs[char] : [char, char]
+                    start.push(s)
+                    end.unshift(e)
+                }
+            }
+
+            insertTokens(textEditor, edit, start.join(''), end.join(''));
+        });
+    }
 }
