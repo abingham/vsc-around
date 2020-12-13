@@ -6,8 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.commands.registerTextEditorCommand(
-            'extension.around',
-            around
+            'extension.around', around
         )
     );
 }
@@ -37,8 +36,8 @@ function insertTokens(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit
 }
 
 function around(textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, ...args: any[]) {
-    if (args.length == 2) {
-        insertTokens(textEditor, edit, args[0], args[1])
+    if (args.length > 0) {
+        insertTokens(textEditor, edit, args[0].start, args[0].end)
     }
     else {
         vscode.window.showInputBox().then(function (trigger) {
