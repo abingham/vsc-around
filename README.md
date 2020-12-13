@@ -24,3 +24,18 @@ Otherwise, `around` processes the trigger string character-by-character. For eac
 key in the mapping. If so, the value is used as a two-tuple of prefix and suffix text. If not, then a two-tuple with
 the character in each position is used. In both cases, the first element in the tuple is appended to the prefix text and the
 second is prepended to the suffix text.
+
+To bind a specific surrounding to a keyboard shortcut, you can add the following code snippet in your `keybindings.json`.
+
+```json
+[
+  {
+    "key": "ctrl+shift+9",
+    "command": "extension.around",
+    "args": {
+      "start": "(",
+      "end": ")"
+    }
+  }
+]
+```
