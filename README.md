@@ -1,9 +1,5 @@
 # Around extension for VS Code
 
-**IMPORTANT**: This project has been abandoned in favor of the identical
-[sammich](http://github.com/abingham/vsc-sammich). Publication of `around` to the VS Code marketplace became irreparably
-broken somehow, so I decided to just restart things with an project and name.
-
 Manage token around regions.
 
 This is a bit of an `evil-surround` port by an Emacs refugee.
